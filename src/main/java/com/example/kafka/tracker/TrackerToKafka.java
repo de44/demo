@@ -1,5 +1,6 @@
 package com.example.kafka.tracker;
 
+import com.example.domain.tracker.TracePoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class TrackerToKafka {
 	
 	public void sendToKafka(CarActivityDTO dto) {
 		log.debug("Received in TrackerToKafka: " + dto);
+		dto.addTracePoint(TracePoint.builder()
+				.name("KafkaProducer")
+				.time(System.currentTimeMillis())
+				.build());
 		Message<?> message = buildDefaultMessage(dto);
 		output.sendTracking().send(message);
 		log.debug("sent to kafka " + message);
@@ -41,7 +46,7 @@ public class TrackerToKafka {
     	} catch (Exception e) {}
     	
     	return MessageBuilder.withPayload(carActivity)
-		.setHeader(MessageHeaders.CONTENT_TYPE, "application/json")
-		.build();
+			.setHeader(MessageHeaders.CONTENT_TYPE, "application/json")
+			.build();
     }
 }

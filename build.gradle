@@ -46,13 +46,18 @@ dependencies {
 	compile ('org.springframework.boot:spring-boot-starter-websocket')
 	compile('org.springframework:spring-messaging')
 	compile ('org.springframework.boot:spring-boot-starter-logging')
+
 	compile ('javax.inject:javax.inject:1')
+
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+
     compile ('io.dropwizard.metrics:metrics-core')
     compile ('io.dropwizard.metrics:metrics-annotation:3.1.2')
     compile ('com.ryantenney.metrics:metrics-spring:3.1.2') {
-    exclude(module: 'metrics-core')
-    exclude(module: 'metrics-healthchecks')
-		} 
+		exclude(module: 'metrics-core')
+		exclude(module: 'metrics-healthchecks')
+	}
 	compile ('io.dropwizard.metrics:metrics-servlet:3.1.2')
     compile ('io.dropwizard.metrics:metrics-json:3.1.2')
     compile ('io.dropwizard.metrics:metrics-servlets:3.1.2') {

@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
+import com.example.domain.tracker.TracePoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class CarTrackerController {
 	@MessageMapping("/activity")
 	public boolean sendActivity(@Payload CarActivityDTO dto) {
 		Instant instant = Instant.ofEpochMilli(Calendar.getInstance().getTimeInMillis());
-		dto.time = dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault()));
+		dto.setTime(dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault())));
+		dto.addTracePoint(TracePoint.builder()
+				.name(this.getClass().getSimpleName())
+				.time(System.currentTimeMillis())
+				.build());
+
 		log.debug("Sending car tracking data {}", dto);
 		toKafka.sendToKafka(dto);
 		return true;

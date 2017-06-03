@@ -1,18 +1,27 @@
 package com.example.domain.tracker;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarActivityDTO {
-	@JsonProperty("carID")
-	public String carID;
-	
-	public String time;
-	
-	 @Override
-	    public String toString() {
-	        return "CarActivityDTO{" +
-	            "carID='" + carID + '\'' +
-	            ", time='" + time + '\'' +
-	            '}';
-	    }
+
+	private String carID;
+	private String time;
+	private List<TracePoint> trace;
+
+	public void addTracePoint(TracePoint tracePoint) {
+		if (trace == null) {
+			trace = Lists.newArrayList();
+		}
+		trace.add(tracePoint);
+	}
 }

@@ -2,6 +2,7 @@ package com.example.kafka.tracker;
 
 import javax.inject.Inject;
 
+import com.example.domain.tracker.TracePoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class TrackingKafkaToWS {
     @StreamListener(ActivitySource.TOPIC)
 	public void loggerSink(CarActivityDTO dto) {
 		log.debug("Received from Kafka: " + dto);
+		dto.addTracePoint(TracePoint.builder()
+				.name("KafkaConsumer")
+				.time(System.currentTimeMillis())
+				.build());
 		sendToClients(dto);
 	}
 

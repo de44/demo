@@ -21,7 +21,16 @@
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/car/tracker', function(carMessage){
-                    showGreeting(carMessage.body);
+                    var car = JSON.parse(carMessage.body);
+                    car.trace.push({
+                        name: 'client',
+                        time: new Date().getTime()
+                    });
+                    car.trace[0].duration = -1;
+                    for (var i=1;i<car.trace.length;i++) {
+                        car.trace[i].duration = car.trace[i].time - car.trace[i-1].time;
+                    }
+                    showGreeting(JSON.stringify(car, null , 2));
                 });
             });
         }
@@ -36,7 +45,16 @@
 
         function sendName() {
             var name = document.getElementById('name').value;
-            stompClient.send("/app/activity", {}, JSON.stringify({ 'carID': name }));
+            var data = {
+                carID: name,
+                trace: [
+                    {
+                        name: 'client',
+                        time: new Date().getTime()
+                    }
+                ]
+            };
+            stompClient.send("/app/activity", {}, JSON.stringify(data));
         }
 
         function showGreeting(message) {
@@ -59,7 +77,7 @@
     <div id="conversationDiv">
         <label>Enter car id</label><input type="text" id="name" />
         <button id="sendName" onclick="sendName();">Send</button>
-        <p id="response"></p>
+        <pre><p id="response"></p></pre>
     </div>
 </div>
 </body>
