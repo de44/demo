@@ -25,7 +25,7 @@ public class TrackingKafkaToWS {
     @Inject
     SimpMessageSendingOperations messagingTemplate;
 	
-    @StreamListener(ActivitySink.TOPIC)
+    @StreamListener(ActivitySource.TOPIC)
 	public void loggerSink(CarActivityDTO dto) {
 		log.debug("Received from Kafka: " + dto);
 		sendToClients(dto);
@@ -36,7 +36,7 @@ public class TrackingKafkaToWS {
 		try {
 			json = mapper.writeValueAsString(dto);
 		} catch (Exception ex) {ex.printStackTrace();}
-		log.debug("Sending to clients: " + dto);
-		messagingTemplate.convertAndSend("/topic/tracking", json);
+		log.debug("Sending to clients: " + json);
+		messagingTemplate.convertAndSend("/car/tracker", json);
 	}
 }

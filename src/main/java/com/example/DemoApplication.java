@@ -14,10 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 public class DemoApplication {
-	@Autowired
-	ObjectMapper mapper;
 
     private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
+
 	public static void main(String[] args) throws UnknownHostException {
 	      SpringApplication app = new SpringApplication(DemoApplication.class);
 	        Environment env = app.run(args).getEnvironment();

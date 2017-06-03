@@ -29,7 +29,7 @@ public class TrackerToKafka {
 		log.debug("Received in TrackerToKafka: " + dto);
 		Message<?> message = buildDefaultMessage(dto);
 		output.sendTracking().send(message);
-		log.debug("sent to kafka" + message);
+		log.debug("sent to kafka " + message);
 	}
 	
 	

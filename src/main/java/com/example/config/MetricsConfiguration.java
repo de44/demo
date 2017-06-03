@@ -44,14 +44,14 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter{
             log.debug("Initializing Metrics JMX reporting");
             JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
             jmxReporter.start();
-            
+
             final Slf4jReporter reporter = Slf4jReporter.forRegistry(metricRegistry)
                     .outputTo(LoggerFactory.getLogger("metrics"))
                     .withLoggingLevel(LoggingLevel.DEBUG)
                     .convertRatesTo(TimeUnit.SECONDS)
                     .convertDurationsTo(TimeUnit.MILLISECONDS)
                     .build();
-                reporter.start(60, TimeUnit.SECONDS);
+//                reporter.start(60, TimeUnit.SECONDS);
 	    }
 
 }

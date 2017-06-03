@@ -20,8 +20,8 @@
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/tracking', function(greeting){
-                    showGreeting(greeting.body);
+                stompClient.subscribe('/car/tracker', function(carMessage){
+                    showGreeting(carMessage.body);
                 });
             });
         }

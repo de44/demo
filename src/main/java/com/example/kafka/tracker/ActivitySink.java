@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ActivitySink {
-	public String TOPIC = "activitySink";
+
+	String TOPIC = "activitySource";
 	
 	@Input(ActivitySink.TOPIC)
 	SubscribableChannel recieveTracking();

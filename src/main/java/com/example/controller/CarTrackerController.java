@@ -27,12 +27,11 @@ public class CarTrackerController {
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	
 	@MessageMapping("/activity")
-    @SendTo("/topic/tracker")
-    public CarActivityDTO sendActivity(@Payload CarActivityDTO dto) {
+	public boolean sendActivity(@Payload CarActivityDTO dto) {
 		Instant instant = Instant.ofEpochMilli(Calendar.getInstance().getTimeInMillis());
 		dto.time = dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault()));
-    	log.debug("Sending car tracking data {}", dto);
-        toKafka.sendToKafka(dto);
-        return dto;
-    }
+		log.debug("Sending car tracking data {}", dto);
+		toKafka.sendToKafka(dto);
+		return true;
+	}
 }

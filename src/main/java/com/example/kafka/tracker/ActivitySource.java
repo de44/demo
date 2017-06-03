@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ActivitySource {
-	public String TOPIC = "activitySource";
+
+	String TOPIC = "activitySource";
 	
 	@Output(ActivitySource.TOPIC)
 	MessageChannel sendTracking();
