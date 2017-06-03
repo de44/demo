@@ -1,0 +1,30 @@
+{
+  "namespace": "com.example.domain.tracker",
+  "type": "record",
+  "name": "AvroCarActivity",
+  "fields": [
+    {
+      "name": "carID",
+      "type": "string"
+    },
+    {
+      "name": "time",
+      "type": "string"
+    },
+    {
+      "name": "trace",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "AvroTracePoint",
+          "namespace": "com.example.domain.tracker",
+          "fields": [
+            {"name":"name","type":"string"},
+            {"name":"time", "type":"long"}
+          ]
+        }
+      }
+    }
+  ]
+}
