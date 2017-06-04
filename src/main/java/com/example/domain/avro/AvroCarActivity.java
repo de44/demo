@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package com.example.domain.tracker;
+package com.example.domain.avro;
 
 import org.apache.avro.specific.SpecificData;
 
@@ -15,7 +15,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.CharSequence carID;
   @Deprecated public java.lang.CharSequence time;
-  @Deprecated public java.util.List<com.example.domain.tracker.AvroTracePoint> trace;
+  @Deprecated public java.util.List<AvroTracePoint> trace;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -30,7 +30,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * @param time The new value for time
    * @param trace The new value for trace
    */
-  public AvroCarActivity(java.lang.CharSequence carID, java.lang.CharSequence time, java.util.List<com.example.domain.tracker.AvroTracePoint> trace) {
+  public AvroCarActivity(java.lang.CharSequence carID, java.lang.CharSequence time, java.util.List<AvroTracePoint> trace) {
     this.carID = carID;
     this.time = time;
     this.trace = trace;
@@ -53,7 +53,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
     switch (field$) {
     case 0: carID = (java.lang.CharSequence)value$; break;
     case 1: time = (java.lang.CharSequence)value$; break;
-    case 2: trace = (java.util.List<com.example.domain.tracker.AvroTracePoint>)value$; break;
+    case 2: trace = (java.util.List<AvroTracePoint>)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -94,7 +94,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * Gets the value of the 'trace' field.
    * @return The value of the 'trace' field.
    */
-  public java.util.List<com.example.domain.tracker.AvroTracePoint> getTrace() {
+  public java.util.List<AvroTracePoint> getTrace() {
     return trace;
   }
 
@@ -102,7 +102,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * Sets the value of the 'trace' field.
    * @param value the value to set.
    */
-  public void setTrace(java.util.List<com.example.domain.tracker.AvroTracePoint> value) {
+  public void setTrace(java.util.List<AvroTracePoint> value) {
     this.trace = value;
   }
 
@@ -110,8 +110,8 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * Creates a new AvroCarActivity RecordBuilder.
    * @return A new AvroCarActivity RecordBuilder
    */
-  public static com.example.domain.tracker.AvroCarActivity.Builder newBuilder() {
-    return new com.example.domain.tracker.AvroCarActivity.Builder();
+  public static AvroCarActivity.Builder newBuilder() {
+    return new AvroCarActivity.Builder();
   }
 
   /**
@@ -119,8 +119,8 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * @param other The existing builder to copy.
    * @return A new AvroCarActivity RecordBuilder
    */
-  public static com.example.domain.tracker.AvroCarActivity.Builder newBuilder(com.example.domain.tracker.AvroCarActivity.Builder other) {
-    return new com.example.domain.tracker.AvroCarActivity.Builder(other);
+  public static AvroCarActivity.Builder newBuilder(AvroCarActivity.Builder other) {
+    return new AvroCarActivity.Builder(other);
   }
 
   /**
@@ -128,8 +128,8 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
    * @param other The existing instance to copy.
    * @return A new AvroCarActivity RecordBuilder
    */
-  public static com.example.domain.tracker.AvroCarActivity.Builder newBuilder(com.example.domain.tracker.AvroCarActivity other) {
-    return new com.example.domain.tracker.AvroCarActivity.Builder(other);
+  public static AvroCarActivity.Builder newBuilder(AvroCarActivity other) {
+    return new AvroCarActivity.Builder(other);
   }
 
   /**
@@ -140,7 +140,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
 
     private java.lang.CharSequence carID;
     private java.lang.CharSequence time;
-    private java.util.List<com.example.domain.tracker.AvroTracePoint> trace;
+    private java.util.List<AvroTracePoint> trace;
 
     /** Creates a new Builder */
     private Builder() {
@@ -151,7 +151,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(com.example.domain.tracker.AvroCarActivity.Builder other) {
+    private Builder(AvroCarActivity.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.carID)) {
         this.carID = data().deepCopy(fields()[0].schema(), other.carID);
@@ -171,7 +171,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
      * Creates a Builder by copying an existing AvroCarActivity instance
      * @param other The existing instance to copy.
      */
-    private Builder(com.example.domain.tracker.AvroCarActivity other) {
+    private Builder(AvroCarActivity other) {
             super(SCHEMA$);
       if (isValidValue(fields()[0], other.carID)) {
         this.carID = data().deepCopy(fields()[0].schema(), other.carID);
@@ -200,7 +200,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'carID'.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder setCarID(java.lang.CharSequence value) {
+    public AvroCarActivity.Builder setCarID(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.carID = value;
       fieldSetFlags()[0] = true;
@@ -220,7 +220,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * Clears the value of the 'carID' field.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder clearCarID() {
+    public AvroCarActivity.Builder clearCarID() {
       carID = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -239,7 +239,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'time'.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder setTime(java.lang.CharSequence value) {
+    public AvroCarActivity.Builder setTime(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.time = value;
       fieldSetFlags()[1] = true;
@@ -259,7 +259,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * Clears the value of the 'time' field.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder clearTime() {
+    public AvroCarActivity.Builder clearTime() {
       time = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -269,7 +269,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * Gets the value of the 'trace' field.
       * @return The value.
       */
-    public java.util.List<com.example.domain.tracker.AvroTracePoint> getTrace() {
+    public java.util.List<AvroTracePoint> getTrace() {
       return trace;
     }
 
@@ -278,7 +278,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'trace'.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder setTrace(java.util.List<com.example.domain.tracker.AvroTracePoint> value) {
+    public AvroCarActivity.Builder setTrace(java.util.List<AvroTracePoint> value) {
       validate(fields()[2], value);
       this.trace = value;
       fieldSetFlags()[2] = true;
@@ -298,7 +298,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
       * Clears the value of the 'trace' field.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroCarActivity.Builder clearTrace() {
+    public AvroCarActivity.Builder clearTrace() {
       trace = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -310,7 +310,7 @@ public class AvroCarActivity extends org.apache.avro.specific.SpecificRecordBase
         AvroCarActivity record = new AvroCarActivity();
         record.carID = fieldSetFlags()[0] ? this.carID : (java.lang.CharSequence) defaultValue(fields()[0]);
         record.time = fieldSetFlags()[1] ? this.time : (java.lang.CharSequence) defaultValue(fields()[1]);
-        record.trace = fieldSetFlags()[2] ? this.trace : (java.util.List<com.example.domain.tracker.AvroTracePoint>) defaultValue(fields()[2]);
+        record.trace = fieldSetFlags()[2] ? this.trace : (java.util.List<AvroTracePoint>) defaultValue(fields()[2]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

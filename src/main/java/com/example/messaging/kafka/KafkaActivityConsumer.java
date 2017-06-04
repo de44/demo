@@ -1,38 +1,36 @@
-package com.example.kafka.tracker;
+package com.example.messaging.kafka;
 
-import javax.inject.Inject;
-
-import com.example.domain.AvroCar;
-import com.example.domain.tracker.AvroCarActivity;
-import com.example.domain.tracker.TracePoint;
+import com.example.domain.avro.AvroCarActivity;
+import com.example.domain.TracePoint;
+import com.example.messaging.ActivityGateway;
 import com.example.util.AvroCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Component;
 
-import com.example.domain.tracker.CarActivityDTO;
+import com.example.domain.CarActivityDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.stream.Collectors;
 
 @Component
-@EnableBinding({ActivitySink.class})
-public class TrackingKafkaToWS {
+//@EnableBinding(ActivityGateway.class)
+public class KafkaActivityConsumer {
 
-	private static final Logger log = LoggerFactory.getLogger(TrackingKafkaToWS.class);
+	private static final Logger log = LoggerFactory.getLogger(KafkaActivityConsumer.class);
 	
-	@Autowired
-	ObjectMapper mapper;
-	
-    @Inject
-    SimpMessageSendingOperations messagingTemplate;
-	
-    @StreamListener(ActivitySink.TOPIC)
+	private final ObjectMapper mapper;
+    private final SimpMessageSendingOperations clientPushTemplate;
+
+    public KafkaActivityConsumer(ObjectMapper mapper, SimpMessageSendingOperations messagingTemplate) {
+        this.mapper = mapper;
+        this.clientPushTemplate = messagingTemplate;
+    }
+
+    @StreamListener(ActivityGateway.TOPIC)
 	public void loggerSink(GenericMessage<byte[]> message) {
         log.debug("Received Generic messsage: " + message);
 
@@ -59,7 +57,7 @@ public class TrackingKafkaToWS {
                 .build();
 
         carActivity.addTracePoint(TracePoint.builder()
-                .name("KafkaConsumer")
+                .name(this.getClass().getSimpleName())
                 .time(System.currentTimeMillis())
                 .build());
 
@@ -72,6 +70,6 @@ public class TrackingKafkaToWS {
 			json = mapper.writeValueAsString(dto);
 		} catch (Exception ex) {ex.printStackTrace();}
 		log.debug("Sending to clients: " + json);
-		messagingTemplate.convertAndSend("/car/tracker", json);
+		clientPushTemplate.convertAndSend("/car/tracker", json);
 	}
 }

@@ -1,41 +1,42 @@
-package com.example.kafka.tracker;
+package com.example.messaging.kafka;
 
-import com.example.domain.tracker.AvroCarActivity;
-import com.example.domain.tracker.AvroTracePoint;
-import com.example.domain.tracker.TracePoint;
+import com.example.domain.avro.AvroCarActivity;
+import com.example.domain.avro.AvroTracePoint;
+import com.example.domain.TracePoint;
+import com.example.messaging.ActivityGateway;
 import com.example.util.AvroCodec;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 
-import com.example.domain.tracker.CarActivityDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.domain.CarActivityDTO;
 
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@EnableBinding(ActivitySource.class)
-public class TrackerToKafka {
+@EnableBinding(ActivityGateway.class)
+public class KafkaActivityProducer {
 	
 	private static final String CONTENT_TYPE_AVRO = "binary/avro";
 
-	@Autowired
-	private ActivitySource output;
-	
-	
-	public void sendToKafka(CarActivityDTO dto) {
-		log.debug("Received in TrackerToKafka: " + dto);
+	private final ActivityGateway gateway;
+
+	public KafkaActivityProducer(ActivityGateway output) {
+		this.gateway = output;
+	}
+
+	public void send(CarActivityDTO dto) {
+		log.debug("Received in KafkaActivityProducer: " + dto);
 		dto.addTracePoint(TracePoint.builder()
-				.name("KafkaProducer")
+				.name(this.getClass().getSimpleName())
 				.time(System.currentTimeMillis())
 				.build());
 		Message<?> message = buildAvroMessage(dto);
-		output.sendTracking().send(message);
+		gateway.publish().send(message);
 		log.debug("sent to kafka " + message);
 	}
 	

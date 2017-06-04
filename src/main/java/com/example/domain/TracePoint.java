@@ -1,4 +1,4 @@
-package com.example.domain.tracker;
+package com.example.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

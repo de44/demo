@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package com.example.domain.tracker;
+package com.example.domain.avro;
 
 import org.apache.avro.specific.SpecificData;
 
@@ -89,8 +89,8 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
    * Creates a new AvroTracePoint RecordBuilder.
    * @return A new AvroTracePoint RecordBuilder
    */
-  public static com.example.domain.tracker.AvroTracePoint.Builder newBuilder() {
-    return new com.example.domain.tracker.AvroTracePoint.Builder();
+  public static AvroTracePoint.Builder newBuilder() {
+    return new AvroTracePoint.Builder();
   }
 
   /**
@@ -98,8 +98,8 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
    * @param other The existing builder to copy.
    * @return A new AvroTracePoint RecordBuilder
    */
-  public static com.example.domain.tracker.AvroTracePoint.Builder newBuilder(com.example.domain.tracker.AvroTracePoint.Builder other) {
-    return new com.example.domain.tracker.AvroTracePoint.Builder(other);
+  public static AvroTracePoint.Builder newBuilder(AvroTracePoint.Builder other) {
+    return new AvroTracePoint.Builder(other);
   }
 
   /**
@@ -107,8 +107,8 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
    * @param other The existing instance to copy.
    * @return A new AvroTracePoint RecordBuilder
    */
-  public static com.example.domain.tracker.AvroTracePoint.Builder newBuilder(com.example.domain.tracker.AvroTracePoint other) {
-    return new com.example.domain.tracker.AvroTracePoint.Builder(other);
+  public static AvroTracePoint.Builder newBuilder(AvroTracePoint other) {
+    return new AvroTracePoint.Builder(other);
   }
 
   /**
@@ -129,7 +129,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(com.example.domain.tracker.AvroTracePoint.Builder other) {
+    private Builder(AvroTracePoint.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
@@ -145,7 +145,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
      * Creates a Builder by copying an existing AvroTracePoint instance
      * @param other The existing instance to copy.
      */
-    private Builder(com.example.domain.tracker.AvroTracePoint other) {
+    private Builder(AvroTracePoint other) {
             super(SCHEMA$);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
@@ -170,7 +170,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroTracePoint.Builder setName(java.lang.CharSequence value) {
+    public AvroTracePoint.Builder setName(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.name = value;
       fieldSetFlags()[0] = true;
@@ -190,7 +190,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
       * Clears the value of the 'name' field.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroTracePoint.Builder clearName() {
+    public AvroTracePoint.Builder clearName() {
       name = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -209,7 +209,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
       * @param value The value of 'time'.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroTracePoint.Builder setTime(long value) {
+    public AvroTracePoint.Builder setTime(long value) {
       validate(fields()[1], value);
       this.time = value;
       fieldSetFlags()[1] = true;
@@ -229,7 +229,7 @@ public class AvroTracePoint extends org.apache.avro.specific.SpecificRecordBase 
       * Clears the value of the 'time' field.
       * @return This builder.
       */
-    public com.example.domain.tracker.AvroTracePoint.Builder clearTime() {
+    public AvroTracePoint.Builder clearTime() {
       fieldSetFlags()[1] = false;
       return this;
     }

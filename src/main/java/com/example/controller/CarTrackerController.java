@@ -6,29 +6,29 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
-import com.example.domain.tracker.TracePoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.domain.TracePoint;
+import com.example.messaging.kafka.KafkaActivityProducer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import com.example.domain.tracker.CarActivityDTO;
-import com.example.kafka.tracker.TrackerToKafka;
+import com.example.domain.CarActivityDTO;
 
+@Slf4j
 @Controller
 public class CarTrackerController {
-	
-	@Autowired
-	TrackerToKafka toKafka;
-	
-    private static final Logger log = LoggerFactory.getLogger(CarTrackerController.class);	
-	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	
-	@MessageMapping("/activity")
-	public boolean sendActivity(@Payload CarActivityDTO dto) {
+
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	private final KafkaActivityProducer toKafka;
+
+    public CarTrackerController(KafkaActivityProducer toKafka) {
+        this.toKafka = toKafka;
+    }
+
+    @MessageMapping("/activity")
+	public void sendActivity(@Payload CarActivityDTO dto) {
 		Instant instant = Instant.ofEpochMilli(Calendar.getInstance().getTimeInMillis());
 		dto.setTime(dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault())));
 		dto.addTracePoint(TracePoint.builder()
@@ -37,7 +37,6 @@ public class CarTrackerController {
 				.build());
 
 		log.debug("Sending car tracking data {}", dto);
-		toKafka.sendToKafka(dto);
-		return true;
+		toKafka.send(dto);
 	}
 }

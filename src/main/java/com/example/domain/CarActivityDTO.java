@@ -1,4 +1,4 @@
-package com.example.domain.tracker;
+package com.example.domain;
 
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;

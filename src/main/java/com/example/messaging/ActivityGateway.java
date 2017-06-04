@@ -1,14 +1,14 @@
-package com.example.kafka.tracker;
+package com.example.messaging;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface ActivitySource {
+public interface ActivityGateway {
 
-	String TOPIC = "activitySource";
+	String TOPIC = "activity_event_bus";
 	
-	@Output(ActivitySource.TOPIC)
-	MessageChannel sendTracking();
+	@Output(TOPIC)
+	MessageChannel publish();
 }
